@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content=text/html;charset="utf-8">
+        <title>成都市生鲜冷链服务系统</title>
+    </head>
+    <body style=" margin: 0;overflow: hidden;background: #fff;width: 100%;height:100%;position: absolute;top: 0;">
+        <div id="map" style="margin:0 auto;width: 100%;height: 100%"></div>
+        <script type="text/javascript" src="dist/leaflet/include-leaflet.js"></script>
+        <script type="text/javascript">
+            var url="http://localhost:8090/iserver/services/map-ChengDu-2/rest/maps/ChengduMap";
+            //创建地图对象，调整天地图坐标系
+            var map = L.map('map', {
+            center: [30.73, 104.03],
+            zoom: 8,
+            crs:L.CRS.TianDiTu_WGS84
+             });
+            //加载天地图图层
+            L.supermap.tiandituTileLayer({
+                key:"415f6565281227f9918b6ae1f9a63965",
+                layerType:'vec'
+            }).addTo(map);
+            L.supermap.tiandituTileLayer({
+            key: "7c147c6dcfae41995da6cb20fc4bc100",
+            isLabel: true
+            }).addTo(map);
+            //叠加chendu地图图层
+            L.supermap.tiledMapLayer(url, {
+                transparent:true,
+                opacity:1
+            }).addTo(map);
+            L.control.scale().addTo(map);//比例尺控件
+        </script>
+    </body>
+</html>
